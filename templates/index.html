@@ -1,0 +1,59 @@
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<style>
+    html {
+        font-family: 'Source Code Pro', monospace;
+    }
+</style>
+<script type="text/babel">
+    class Application extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getWalletInfo()
+        this.state = { walletInfo: "", }
+        setInterval(function(){
+            this.getWalletInfo()
+        }.bind(this),1000)
+    }
+
+    getWalletInfo() {
+        fetch("/data/"+"wallet_info", {
+          "method": "GET",
+          "headers": {
+            "content-type": "application/json"
+          }
+        })
+        .then(response => {
+            response.json().then(r =>{
+                this.setState({walletInfo: r})
+            })
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    
+    render() {
+        return (
+        <div className="main">
+            <div className="top">
+                <h3>DASHBOARD START</h3>
+            </div>
+            <div className="bottom">
+                <pre>
+                    {
+                        this.state.walletInfo != "" &&
+                        JSON.stringify(this.state.walletInfo,null,2) 
+                    }
+                </pre>
+            </div>
+        </div>);
+    }
+}
+ReactDOM.render(
+    <Application />,
+    document.getElementById('root')
+);
+</script>
