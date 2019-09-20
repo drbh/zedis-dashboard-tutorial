@@ -1,5 +1,8 @@
 ## Zedis Tutorial
 
+
+<img src="public/annotated.png" alt="Logo">
+
 Today we'll build a simple dashboard framework. We'll use Zedis+Flask+React since we love the simplicty of Python for a backend and power of React for the front end. 
 
 We want our app to be able to do a few things. 
@@ -29,6 +32,8 @@ Zedis is a just a tiny protocol and glue between two time tested and well writte
 
 Not every wants to write Rust to get the benifits of Sled, luckily ZMQ acts as a perfect transport layer between Sled and any programming language of your choice. 
 
+<img src="public/brokerless.png" alt="Logo" height=400px>
+
 This way you can read/write from zedis from practiaclly any language without a zedis specific client library, you just need your favorite languauges' ZMQ client. 
 
 Now that you can communicate with Zedis, you'll need to speak it's languauge. This is very simple is only consists of 5 commands. `GET`, `SET`, `DEL`, `KEYS` and `PRE`. You should be able to decern what these keys do from their names, or refer to the docs for more info.
@@ -39,7 +44,7 @@ We can get the latest version of Zedis by cloning the github repo and building i
 
 The following commands fetch and build zedis, then saves the binary in your executables path so you can run `zedis` from the cli
 
-```
+```bash
 git clone https://github.com/drbh/zedis.git
 cd zedis
 cargo build --release
@@ -48,14 +53,14 @@ sh install.sh
 
 now you should be able to run
 
-```
+```bash
 zedis
 ```
 
 note: this will create a db in any directory it is execute from. 
 
 
-## Learn how to save and retrive
+## Learn how to save and retrive 👜
 
 Now that we have zedis lets do a small test in python to undersand how we'll use this in our app. 
 
@@ -182,6 +187,8 @@ if __name__ == '__main__':
     app.run()
 ```
 
+<img src="public/terminals.png" alt="Logo">
+
 Now all we need to do is create `index.hmtl` that make request to the `data` endpoint. Easy enough.
 
 Since we'll likely want to expand the apps functionality in the future we want to use a productive web framework. Since we all ❤️ React, its the obvious choice. This will also save time and headaches later. 
@@ -255,6 +262,8 @@ ReactDOM.render(
 );
 </script>
 ```
+
+<img src="public/unstyled.png" alt="Logo">
 
 Great! We now have a <60 line html file that will interact with our server and subsuquently read data from zedis. 
 
